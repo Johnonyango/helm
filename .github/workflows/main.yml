@@ -23,4 +23,4 @@ jobs:
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
 
       - name: Push Image to GHCR
-        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/xe/xc-nassit:vtest_17_02_2025__09_16_15
+        run: docker push ghcr.io/johnonyango/xe/xc-nassit:vtest_17_02_2025__09_16_15
