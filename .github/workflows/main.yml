@@ -1,0 +1,26 @@
+name: Sync GitLab Image to GHCR
+
+on:
+  workflow_dispatch:  # Allows manual trigger
+  schedule:
+    - cron: '0 12 * * *'  # Runs daily at 12 PM UTC
+
+jobs:
+  sync-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Login to GitLab Container Registry
+        run: echo "${{ secrets.GITLAB_PAT }}" | docker login registry.gitlab.com -u "${{ secrets.GITLAB_USERNAME }}" --password-stdin
+
+      - name: Pull Image from GitLab
+        run: docker pull registry.gitlab.com/systechlimited/fm/mobilebackend3-0:latest
+
+      - name: Tag Image for GHCR
+        run: docker tag registry.gitlab.com/systechlimited/fm/mobilebackend3-0:latest ghcr.io/${{ secrets.GHCR_USERNAME }}/fm-mobilebackend3-0:latest
+
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+
+      - name: Push Image to GHCR
+        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/fm-mobilebackend3-0:latest
