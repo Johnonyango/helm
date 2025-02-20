@@ -1,0 +1,74 @@
+applicationName: xc
+
+imagePullPolicy: IfNotPresent
+
+pullSecret: gitlab-registry-secret
+xc:
+    replicas: 1
+    serviceName: xc
+    # nameSpace: xc
+    servicePort: 8080
+    imageName: registry.gitlab.com/systechlimited/fm/xe
+    imageTag: latest
+    nodePort: 30050
+
+nassitxc:
+    replicas: 1
+    serviceName: nassitxc
+    # nameSpace: nassit
+    servicePort: 8080
+    imageName: registry.gitlab.com/systechlimited/fm/xe/xc-nassit
+    imageTag: v1.0.3
+    entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
+    environment:
+        DB_HOST: "10.182.101.5"
+        DB_PORT: "9999"
+        DB_PASS: "Nassit123$"
+        DB_USER: "fundmaster"
+        DB_NAME: "fundmaster?currentSchema=fundmaster_xc_uat1"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
+    nodePort: 30051
+
+# mss:
+#     replicas: 1
+#     serviceName: mss
+#     servicePort: 8080
+#     imageName: registry.gitlab.com/systechlimited/fm/xe/xc-oldmutual
+#     imageTag: latest
+#     nodePort: 30013
+
+# complince:
+#     replicas: 1
+#     serviceName: complince
+#     servicePort: 8080
+#     imageName: registry.gitlab.com/systechlimited/fm/xe/xe-mcb
+#     imageTag: latest
+#     nodePort: 30014
+
+# notification:
+#     replicas: 1
+#     serviceName: notification
+#     servicePort: 8080
+#     imageName: registry.gitlab.com/systechlimited/fm/xe
+#     imageTag: latest
+#     nodePort: 30023
+
+# workflow:
+#     replicas: 1
+#     serviceName: workflow
+#     servicePort: 8080
+#     imageName: registry.gitlab.com/systechlimited/fm/xe
+#     imageTag: latest
+#     nodePort: 30024
+
+# pep:
+#     replicas: 1
+#     serviceName: pep
+#     servicePort: 8080
+#     imageName: registry.gitlab.com/systechlimited/fm/xe
+#     imageTag: latest
+#     nodePort: 30025
+
+
+     
