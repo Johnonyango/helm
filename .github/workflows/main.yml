@@ -16,7 +16,7 @@ jobs:
       - name: Pull Image from GitLab
         run: docker pull registry.gitlab.com/systechlimited/fm/xe/xc-nassit:vtest_17_02_2025__09_16_15
       - name: Tag Image for GHCR
-        run: docker tag registry.gitlab.com/systechlimited/fm/xe/xc-nassit:vtest_17_02_2025__09_16_15 ghcr.io/${{ secrets.GHCR_USERNAME }}xe/xc-nassit:vtest_17_02_2025__09_16_15
+        run: docker tag registry.gitlab.com/systechlimited/fm/xe/xc-nassit:vtest_17_02_2025__09_16_15 ghcr.io/${{ secrets.GHCR_USERNAME }}/xe/xc-nassit:vtest_17_02_2025__09_16_15
 
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
