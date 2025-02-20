@@ -14,13 +14,12 @@ jobs:
         run: echo "${{ secrets.GITLAB_PAT }}" | docker login registry.gitlab.com -u "${{ secrets.GITLAB_USERNAME }}" --password-stdin
 
       - name: Pull Image from GitLab
-        run: docker pull registry.gitlab.com/systechlimited/fm/mobilebackend3-0:latest
-
+        run: docker pull registry.gitlab.com/systechlimited/fm/xe/xc-nassit:vtest_17_02_2025__09_16_15
       - name: Tag Image for GHCR
-        run: docker tag registry.gitlab.com/systechlimited/fm/mobilebackend3-0:latest ghcr.io/${{ secrets.GHCR_USERNAME }}/fm-mobilebackend3-0:latest
+        run: docker tag registry.gitlab.com/systechlimited/fm/xe/xc-nassit:vtest_17_02_2025__09_16_15 ghcr.io/${{ secrets.GHCR_USERNAME }}xe/xc-nassit:vtest_17_02_2025__09_16_15
 
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
 
       - name: Push Image to GHCR
-        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/fm-mobilebackend3-0:latest
+        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}xe/xc-nassit:vtest_17_02_2025__09_16_15
