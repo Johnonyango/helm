@@ -21,11 +21,11 @@ nassitxc:
     imageTag: v1.0.3
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
-        DB_HOST: "10.182.101.5"
-        DB_PORT: "9999"
+        DB_HOST: "10.182.101.35"
+        DB_PORT: "5432"
         DB_PASS: "Nassit123$"
-        DB_USER: "fundmaster"
-        DB_NAME: "fundmaster?currentSchema=fundmaster_xc_uat1"
+        DB_USER: "postgres"
+        DB_NAME: "fundmaster_xc_uat1?currentSchema=fundmaster"
         WILDFLY_USER: "admin"
         WILDFLY_PASS: "Admin@123"
     nodePort: 30066
