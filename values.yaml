@@ -14,15 +14,23 @@ xc:
 
 nassitxc:
     replicas: 1
+    minReplicas: 1
+    maxReplicas: 5
     serviceName: nassitxc
+    requests: 
+        cpu: 7m
+        memory: 8Gi
+    limits: 
+        cpu: 7m
+        memory: 8Gi
     # nameSpace: nassit
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/xe/xc-nassit
     imageTag: v1.0.3
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
-        DB_HOST: "10.182.101.35"
-        DB_PORT: "5432"
+        DB_HOST: "10.182.101.5"
+        DB_PORT: "4432"
         DB_PASS: "Nassit123$"
         DB_USER: "postgres"
         DB_NAME: "fundmaster_xc_uat1?currentSchema=fundmaster"
@@ -30,5 +38,5 @@ nassitxc:
         WILDFLY_PASS: "Admin@123"
     nodePort: 30087
 
-
+#  https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
      

@@ -36,6 +36,13 @@ spec:
       - name: {{ .Values.nassitxc.serviceName }}
         image: "{{ .Values.nassitxc.imageName }}:{{ .Values.nassitxc.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: "{{ .Values.nassitxc.requests.cpu }}"
+            memory: "{{ .Values.nassitxc.requests.memory }}"
+          limits:
+            cpu: "{{ .Values.nassitxc.requests.cpu }}"
+            memory: "{{ .Values.nassitxc.requests.memory }}"
         env:
           - name: DB_HOST
             value: "{{ .Values.nassitxc.environment.DB_HOST }}"
@@ -56,4 +63,30 @@ spec:
         - containerPort: {{ .Values.nassitxc.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Values.nassitxc.serviceName }}-hpa"
+spec:
+  minReplicas: {{ .Values.nassitxc.minReplicas }}
+  maxReplicas: {{ .Values.nassitxc.maxReplicas }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.nassitxc.serviceName }}
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
 
