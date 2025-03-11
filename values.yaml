@@ -69,7 +69,7 @@ compliance:
         memory: 8Gi
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/compliance-service
-    imageTag: vtest_2025_03_11__10_41_20
+    imageTag: vtest_2025_03_10__16_13_07
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
         DB_HOST: "10.182.101.5"
