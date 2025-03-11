@@ -97,10 +97,8 @@ workflow:
     imageTag: latest
     environment:
         DATABASE_URL: "jdbc:postgresql://10.182.101.5:4432/workflow"
-        DB_PASSWORD: "Nassit123$"
-        DB_USERNAME: "postgres"
-        WILDFLY_USER: "admin"
-        WILDFLY_PASS: "Admin@123"
+        DATABASE_PASSWORD: "Nassit123$"
+        DATABASE_USERNAME: "postgres"
     nodePort: 30054
 
 
