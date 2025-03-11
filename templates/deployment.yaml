@@ -2,41 +2,41 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.mss.serviceName }}
-  name: {{ .Values.mss.serviceName }}
+    service: {{ .Values.nassitmss.serviceName }}
+  name: {{ .Values.nassitmss.serviceName }}
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.mss.servicePort }}
-      targetPort: {{ .Values.mss.servicePort }}
-      nodePort: {{ .Values.mss.nodePort }}
-      name: {{ .Values.mss.serviceName }}
+    - port: {{ .Values.nassitmss.servicePort }}
+      targetPort: {{ .Values.nassitmss.servicePort }}
+      nodePort: {{ .Values.nassitmss.nodePort }}
+      name: {{ .Values.nassitmss.serviceName }}
   selector:
-    service: {{ .Values.mss.serviceName }}
+    service: {{ .Values.nassitmss.serviceName }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.mss.serviceName }}
-  name: {{ .Values.mss.serviceName }}
+    service: {{ .Values.nassitmss.serviceName }}
+  name: {{ .Values.nassitmss.serviceName }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.mss.serviceName }}
+      service: {{ .Values.nassitmss.serviceName }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.mss.serviceName }}
-        service: {{ .Values.mss.serviceName }}
+        component: {{ .Values.nassitmss.serviceName }}
+        service: {{ .Values.nassitmss.serviceName }}
     spec:
       containers:
-      - name: {{ .Values.mss.serviceName }}
-        image: "{{ .Values.mss.imageName }}:{{ .Values.mss.imageTag }}"
+      - name: {{ .Values.nassitmss.serviceName }}
+        image: "{{ .Values.nassitmss.imageName }}:{{ .Values.nassitmss.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.mss.servicePort }}
+        - containerPort: {{ .Values.nassitmss.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
