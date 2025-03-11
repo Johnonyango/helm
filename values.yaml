@@ -94,16 +94,15 @@ workflow:
         memory: 8Gi
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/workflowxcservice/workflow-service
-    # imageTag: v-26-02-2025--10-59-28
-    imageTag: latest
+    imageTag: v-26-02-2025--10-59-28
     environment:
-            DATABASE_URL: jdbc:postgresql://10.182.101.5:4432/workflow
-            DATABASE_USERNAME: postgres
-            DATABASE_PASSWORD: Nassit123$
-            HIBERNATE_DIALECT: org.hibernate.dialect.PostgresPlusDialect
-            DATABASE_DRIVER_CLASS: org.postgresql.Driver
-
+        DB_URL: "jdbc:postgresql://10.182.101.5:4432/workflow"
+        DB_PASSWORD: "Nassit123$"
+        DB_USERNAME: "postgres"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
     nodePort: 30054
+
 
 notification:
     replicas: 1
