@@ -64,29 +64,29 @@ spec:
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
-# ---
-# apiVersion: autoscaling/v2
-# kind: HorizontalPodAutoscaler
-# metadata:
-#   name: "{{ .Values.nassitxc.serviceName }}-hpa"
-# spec:
-#   minReplicas: {{ .Values.nassitxc.minReplicas }}
-#   maxReplicas: {{ .Values.nassitxc.maxReplicas }}
-#   scaleTargetRef:
-#     apiVersion: apps/v1
-#     kind: Deployment
-#     name: {{ .Values.nassitxc.serviceName }}
-#   metrics:
-#   - type: Resource
-#     resource:
-#       name: memory
-#       target:
-#         type: Utilization
-#         averageUtilization: 70
-#   - type: Resource
-#     resource:
-#       name: cpu
-#       target:
-#         type: Utilization
-#         averageUtilization: 70
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Values.nassitxc.serviceName }}-hpa"
+spec:
+  minReplicas: {{ .Values.nassitxc.minReplicas }}
+  maxReplicas: {{ .Values.nassitxc.maxReplicas }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.nassitxc.serviceName }}
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
 
