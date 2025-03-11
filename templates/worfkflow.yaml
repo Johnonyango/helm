@@ -47,15 +47,11 @@ spec:
         #     memory: "{{ .Values.workflow.requests.memory }}"
         env:
           - name: DB_URL
-            value: "{{ .Values.workflow.environment.DB_URL }}"
+            value: "{{ .Values.workflow.environment.DATABASE_URL }}"
           - name: DB_PASSWORD
-            value: "{{ .Values.workflow.environment.DB_PASSWORD }}"
+            value: "{{ .Values.workflow.environment.DATABASE_PASSWORD }}"
           - name: DB_USERNAME
-            value: "{{ .Values.workflow.environment.DB_USERNAME }}"
-          - name: WILDFLY_USER
-            value: "{{ .Values.workflow.environment.WILDFLY_USER }}"
-          - name: WILDFLY_PASS
-            value: {{ .Values.workflow.environment.WILDFLY_PASS }}
+            value: "{{ .Values.workflow.environment.DATABASE_USERNAME }}"
         ports:
         - containerPort: {{ .Values.workflow.servicePort }}
       imagePullSecrets:
