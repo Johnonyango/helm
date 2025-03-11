@@ -117,7 +117,7 @@ workflow:
 notification:
     replicas: 1
     minReplicas: 1
-    maxReplicas: 5
+    maxReplicas: 1
     serviceName: notification
     requests: 
         cpu: 7m
