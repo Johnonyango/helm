@@ -46,20 +46,16 @@ spec:
         #     cpu: "{{ .Values.nassitxc.requests.cpu }}"
         #     memory: "{{ .Values.nassitxc.requests.memory }}"
         env:
-          - name: DB_HOST
-            value: "{{ .Values.nassitxc.environment.DB_HOST }}"
-          - name: DB_PORT
-            value: "{{ .Values.nassitxc.environment.DB_PORT }}"
-          - name: DB_PASS
-            value: "{{ .Values.nassitxc.environment.DB_PASS }}"
-          - name: DB_USER
-            value: "{{ .Values.nassitxc.environment.DB_USER }}"
-          - name: DB_NAME
-            value: "{{ .Values.nassitxc.environment.DB_NAME }}"
-          - name: WILDFLY_USER
-            value: "{{ .Values.nassitxc.environment.WILDFLY_USER }}"
-          - name: WILDFLY_PASS
-            value: {{ .Values.nassitxc.environment.WILDFLY_PASS }}
+          - name: DATABASE_URL
+            value: "{{ .Values.nassitxc.environment.DATABASE_URL }}"
+          - name: DATABASE_PASSWORD
+            value: "{{ .Values.nassitxc.environment.DATABASE_PASSWORD }}"
+          - name: DATABASE_USERNAME
+            value: "{{ .Values.nassitxc.environment.DATABASE_USERNAME }}"
+          - name: WILDFLY_USERNAME
+            value: "{{ .Values.nassitxc.environment.WILDFLY_USERNAME }}"
+          - name: WILDFLY_PASSWORD
+            value: "{{ .Values.nassitxc.environment.WILDFLY_PASSWORD }}"
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
         - containerPort: {{ .Values.nassitxc.servicePort }}
