@@ -46,11 +46,11 @@ spec:
         #     cpu: "{{ .Values.workflow.requests.cpu }}"
         #     memory: "{{ .Values.workflow.requests.memory }}"
         env:
-          - name: DB_URL
+          - name: DATABASE_URL
             value: "{{ .Values.workflow.environment.DATABASE_URL }}"
-          - name: DB_PASSWORD
+          - name: DATABASE_PASSWORD
             value: "{{ .Values.workflow.environment.DATABASE_PASSWORD }}"
-          - name: DB_USERNAME
+          - name: DATABASE_USERNAME
             value: "{{ .Values.workflow.environment.DATABASE_USERNAME }}"
         ports:
         - containerPort: {{ .Values.workflow.servicePort }}
