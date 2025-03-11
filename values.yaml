@@ -16,7 +16,7 @@ nassitmss:
         memory: 8Gi
     # nameSpace: nassit
     servicePort: 8080
-    imageName: registry.gitlab.com/systechlimited/fm/xe/xc-nassit
+    imageName: registry.gitlab.com/systechlimited/fm/mssvisionjava/mss_nassit
     imageTag: v1.0.3
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
