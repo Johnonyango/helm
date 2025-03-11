@@ -52,6 +52,10 @@ spec:
             value: "{{ .Values.workflow.environment.DATABASE_PASSWORD }}"
           - name: DATABASE_USERNAME
             value: "{{ .Values.workflow.environment.DATABASE_USERNAME }}"
+          - name: HIBERNATE_DIALECT
+            value: "{{ .Values.workflow.environment.HIBERNATE_DIALECT }}"
+          - name: DATABASE_DRIVER_CLASS
+            value: "{{ .Values.workflow.environment.DATABASE_DRIVER_CLASS }}"
         ports:
         - containerPort: {{ .Values.workflow.servicePort }}
       imagePullSecrets:
