@@ -5,11 +5,29 @@ imagePullPolicy: IfNotPresent
 pullSecret: gitlab-registry-secret
 nassitmss:
     replicas: 1
+    minReplicas: 1
+    maxReplicas: 1
     serviceName: nassitmss
-    # nameSpace: xc
+    requests: 
+        cpu: 7m
+        memory: 8Gi
+    limits: 
+        cpu: 7m
+        memory: 8Gi
+    # nameSpace: nassit
     servicePort: 8080
-    imageName: registry.gitlab.com/systechlimited/fm/xe
-    imageTag: latest
+    imageName: registry.gitlab.com/systechlimited/fm/xe/xc-nassit
+    imageTag: v1.0.3
+    entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
+    environment:
+        DB_HOST: "10.182.101.5"
+        DB_PORT: "4432"
+        DB_PASS: "Nassit123$"
+        DB_USER: "postgres"
+        DB_NAME: "mss"
+        # DB_NAME: "fundmaster_xc_uat1?currentSchema=fundmaster"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
     nodePort: 30050
 
 nassitxc:
