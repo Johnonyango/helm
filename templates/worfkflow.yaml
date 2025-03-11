@@ -38,13 +38,13 @@ spec:
       - name: {{ .Values.workflow.serviceName }}
         image: "{{ .Values.workflow.imageName }}:{{ .Values.workflow.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        resources:
-          requests:
-            cpu: "{{ .Values.workflow.requests.cpu }}"
-            memory: "{{ .Values.workflow.requests.memory }}"
-          limits:
-            cpu: "{{ .Values.workflow.requests.cpu }}"
-            memory: "{{ .Values.workflow.requests.memory }}"
+        # resources:
+        #   requests:
+        #     cpu: "{{ .Values.workflow.requests.cpu }}"
+        #     memory: "{{ .Values.workflow.requests.memory }}"
+        #   limits:
+        #     cpu: "{{ .Values.workflow.requests.cpu }}"
+        #     memory: "{{ .Values.workflow.requests.memory }}"
         env:
           - name: DB_URL
             value: "{{ .Values.workflow.environment.DB_URL }}"
