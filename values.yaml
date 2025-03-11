@@ -97,11 +97,12 @@ workflow:
     # imageTag: v-26-02-2025--10-59-28
     imageTag: latest
     environment:
-        DATABASE_URL: "jdbc:postgresql://10.182.101.5:4432/workflow"
-        DATABASE_PASSWORD: "Nassit123$"
-        DATABASE_USERNAME: "postgres"
-        HIBERNATE_DIALECT: "org.hibernate.dialect.PostgresPlusDialect"
-        DATABASE_DRIVER_CLASS: "org.postgresql.Driver"
+            DATABASE_URL: jdbc:postgresql://10.182.101.5:4432/workflow
+            DATABASE_USERNAME: postgres
+            DATABASE_PASSWORD: Nassit123$
+            HIBERNATE_DIALECT: org.hibernate.dialect.PostgresPlusDialect
+            DATABASE_DRIVER_CLASS: org.postgresql.Driver
+
     nodePort: 30054
 
 notification:
