@@ -37,8 +37,56 @@ spec:
       - name: {{ .Values.nassitmss.serviceName }}
         image: "{{ .Values.nassitmss.imageName }}:{{ .Values.nassitmss.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        # resources:
+        #   requests:
+        #     cpu: "{{ .Values.nassitmss.requests.cpu }}"
+        #     memory: "{{ .Values.nassitmss.requests.memory }}"
+        #   limits:
+        #     cpu: "{{ .Values.nassitmss.requests.cpu }}"
+        #     memory: "{{ .Values.nassitmss.requests.memory }}"
+        env:
+          - name: DB_HOST
+            value: "{{ .Values.nassitmss.environment.DB_HOST }}"
+          - name: DB_PORT
+            value: "{{ .Values.nassitmss.environment.DB_PORT }}"
+          - name: DB_PASS
+            value: "{{ .Values.nassitmss.environment.DB_PASS }}"
+          - name: DB_USER
+            value: "{{ .Values.nassitmss.environment.DB_USER }}"
+          - name: DB_NAME
+            value: "{{ .Values.nassitmss.environment.DB_NAME }}"
+          - name: WILDFLY_USER
+            value: "{{ .Values.nassitmss.environment.WILDFLY_USER }}"
+          - name: WILDFLY_PASS
+            value: {{ .Values.nassitmss.environment.WILDFLY_PASS }}
+        command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
         - containerPort: {{ .Values.nassitmss.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Values.nassitmss.serviceName }}-hpa"
+spec:
+  minReplicas: {{ .Values.nassitmss.minReplicas }}
+  maxReplicas: {{ .Values.nassitmss.maxReplicas }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.nassitmss.serviceName }}
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
