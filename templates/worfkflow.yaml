@@ -21,6 +21,8 @@ metadata:
   labels:
     service: {{ .Values.workflow.serviceName }}
   name: {{ .Values.workflow.serviceName }}
+data:
+    application.refresh.cache.expiration: "0s"
 spec:
   selector:
     matchLabels:

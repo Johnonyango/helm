@@ -126,7 +126,7 @@ notification:
         DB_NAME: "fundmaster"
         WILDFLY_USER: "admin"
         WILDFLY_PASS: "Admin@123"
-    nodePort: 30060
+    nodePort: 30055
 
 #  https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
      
