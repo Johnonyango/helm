@@ -1,1 +1,92 @@
-# test
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: {{ .Values.compliance.serviceName }}
+  # namespace: {{ .Values.compliance.nameSpace }}
+  name: {{ .Values.compliance.serviceName }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.compliance.servicePort }}
+      targetPort: {{ .Values.compliance.servicePort }}
+      nodePort: {{ .Values.compliance.nodePort }}
+      name: {{ .Values.compliance.serviceName }}
+  selector:
+    service: {{ .Values.compliance.serviceName }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Values.compliance.serviceName }}
+  name: {{ .Values.compliance.serviceName }}
+spec:
+  selector:
+    matchLabels:
+      service: {{ .Values.compliance.serviceName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.applicationName }}
+        component: {{ .Values.compliance.serviceName }}
+        service: {{ .Values.compliance.serviceName }}
+    spec:
+      containers:
+      - name: {{ .Values.compliance.serviceName }}
+        image: "{{ .Values.compliance.imageName }}:{{ .Values.compliance.imageTag }}"
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: "{{ .Values.compliance.requests.cpu }}"
+            memory: "{{ .Values.compliance.requests.memory }}"
+          limits:
+            cpu: "{{ .Values.compliance.requests.cpu }}"
+            memory: "{{ .Values.compliance.requests.memory }}"
+        env:
+          - name: DB_HOST
+            value: "{{ .Values.compliance.environment.DB_HOST }}"
+          - name: DB_PORT
+            value: "{{ .Values.compliance.environment.DB_PORT }}"
+          - name: DB_PASS
+            value: "{{ .Values.compliance.environment.DB_PASS }}"
+          - name: DB_USER
+            value: "{{ .Values.compliance.environment.DB_USER }}"
+          - name: DB_NAME
+            value: "{{ .Values.compliance.environment.DB_NAME }}"
+          - name: WILDFLY_USER
+            value: "{{ .Values.compliance.environment.WILDFLY_USER }}"
+          - name: WILDFLY_PASS
+            value: {{ .Values.compliance.environment.WILDFLY_PASS }}
+        command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
+        ports:
+        - containerPort: {{ .Values.compliance.servicePort }}
+      imagePullSecrets:
+        - name: {{ .Values.pullSecret }}
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Values.compliance.serviceName }}-hpa"
+spec:
+  minReplicas: {{ .Values.compliance.minReplicas }}
+  maxReplicas: {{ .Values.compliance.maxReplicas }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.compliance.serviceName }}
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+

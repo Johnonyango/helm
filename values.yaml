@@ -33,10 +33,111 @@ nassitxc:
         DB_PORT: "4432"
         DB_PASS: "Nassit123$"
         DB_USER: "postgres"
-        DB_NAME: "fundmaster_xc_uat1?currentSchema=fundmaster"
+        DB_NAME: "fundmaster"
+        # DB_NAME: "fundmaster_xc_uat1?currentSchema=fundmaster"
         WILDFLY_USER: "admin"
         WILDFLY_PASS: "Admin@123"
-    nodePort: 30087
+    nodePort: 30051
+
+compliance:
+    replicas: 1
+    minReplicas: 1
+    maxReplicas: 5
+    serviceName: compliance
+    requests: 
+        cpu: 7m
+        memory: 8Gi
+    limits: 
+        cpu: 7m
+        memory: 8Gi
+    # nameSpace: nassit
+    servicePort: 8080
+    imageName: registry.gitlab.com/systechlimited/fm/compliance-service
+    imageTag: v1.0.3
+    entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
+    environment:
+        DB_HOST: "10.182.101.5"
+        DB_PORT: "4432"
+        DB_PASS: "Nassit123$"
+        DB_USER: "postgres"
+        DB_NAME: "fundmaster"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
+    nodePort: 30052
+
+mss:
+    replicas: 1
+    minReplicas: 1
+    maxReplicas: 5
+    serviceName: nassitxc
+    requests: 
+        cpu: 7m
+        memory: 8Gi
+    limits: 
+        cpu: 7m
+        memory: 8Gi
+    servicePort: 8080
+    imageName: registry.gitlab.com/systechlimited/fm/mssvisionjava/mss_nassit
+    imageTag: v1.0.3
+    entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
+    environment:
+        DB_HOST: "10.182.101.5"
+        DB_PORT: "4432"
+        DB_PASS: "Nassit123$"
+        DB_USER: "postgres"
+        DB_NAME: "mss"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
+    nodePort: 30053
+
+workflow:
+    replicas: 1
+    minReplicas: 1
+    maxReplicas: 5
+    serviceName: workflow
+    requests: 
+        cpu: 7m
+        memory: 8Gi
+    limits: 
+        cpu: 7m
+        memory: 8Gi
+    servicePort: 8080
+    imageName: registry.gitlab.com/systechlimited/fm/workflowxcservice/workflow-service
+    imageTag: v1.0.3
+    entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
+    environment:
+        DB_URL: "jdbc:postgresql://10.182.101.5:4432/workflow"
+        DB_PASSWORD: "Nassit123$"
+        DB_USERNAME: "postgres"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
+    nodePort: 30054
+
+
+notification:
+    replicas: 1
+    minReplicas: 1
+    maxReplicas: 5
+    serviceName: notification
+    requests: 
+        cpu: 7m
+        memory: 8Gi
+    limits: 
+        cpu: 7m
+        memory: 8Gi
+    servicePort: 8080
+    imageName: registry.gitlab.com/systechlimited/fm/notificationsservice
+    imageTag: v1.0.3
+    entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
+    environment:
+        DB_HOST: "10.182.101.5"
+        DB_PORT: "4432"
+        DB_PASS: "Nassit123$"
+        DB_USER: "postgres"
+        DB_NAME: "fundmaster"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
+    nodePort: 30055
 
 #  https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
      

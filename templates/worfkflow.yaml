@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: {{ .Values.worfkflow.serviceName }}
+  # namespace: {{ .Values.worfkflow.nameSpace }}
+  name: {{ .Values.worfkflow.serviceName }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.worfkflow.servicePort }}
+      targetPort: {{ .Values.worfkflow.servicePort }}
+      nodePort: {{ .Values.worfkflow.nodePort }}
+      name: {{ .Values.worfkflow.serviceName }}
+  selector:
+    service: {{ .Values.worfkflow.serviceName }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Values.worfkflow.serviceName }}
+  name: {{ .Values.worfkflow.serviceName }}
+spec:
+  selector:
+    matchLabels:
+      service: {{ .Values.worfkflow.serviceName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.applicationName }}
+        component: {{ .Values.worfkflow.serviceName }}
+        service: {{ .Values.worfkflow.serviceName }}
+    spec:
+      containers:
+      - name: {{ .Values.worfkflow.serviceName }}
+        image: "{{ .Values.worfkflow.imageName }}:{{ .Values.worfkflow.imageTag }}"
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: "{{ .Values.worfkflow.requests.cpu }}"
+            memory: "{{ .Values.worfkflow.requests.memory }}"
+          limits:
+            cpu: "{{ .Values.worfkflow.requests.cpu }}"
+            memory: "{{ .Values.worfkflow.requests.memory }}"
+        env:
+          - name: DB_URL
+            value: "{{ .Values.worfkflow.environment.DB_URL }}"
+          - name: DB_PASSWORD
+            value: "{{ .Values.worfkflow.environment.DB_PASSWORD }}"
+          - name: DB_USERNAME
+            value: "{{ .Values.worfkflow.environment.DB_USERNAME }}"
+          - name: WILDFLY_USER
+            value: "{{ .Values.worfkflow.environment.WILDFLY_USER }}"
+          - name: WILDFLY_PASS
+            value: {{ .Values.worfkflow.environment.WILDFLY_PASS }}
+        command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
+        ports:
+        - containerPort: {{ .Values.worfkflow.servicePort }}
+      imagePullSecrets:
+        - name: {{ .Values.pullSecret }}
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Values.worfkflow.serviceName }}-hpa"
+spec:
+  minReplicas: {{ .Values.worfkflow.minReplicas }}
+  maxReplicas: {{ .Values.worfkflow.maxReplicas }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.worfkflow.serviceName }}
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+
