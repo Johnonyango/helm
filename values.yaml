@@ -71,7 +71,7 @@ compliance:
     # nameSpace: nassit
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/compliance-service
-    imageTag: v1.0.3
+    imageTag: vtest_2025_03_11__10_41_20
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
         DB_HOST: "10.182.101.5"
@@ -121,7 +121,7 @@ workflow:
         memory: 8Gi
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/workflowxcservice/workflow-service
-    imageTag: v1.0.3
+    imageTag: v-26-02-2025--10-59-28
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
         DB_URL: "jdbc:postgresql://10.182.101.5:4432/workflow"
@@ -145,7 +145,7 @@ notification:
         memory: 8Gi
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/notificationsservice
-    imageTag: v1.0.3
+    imageTag: v-03-03-2025--09-10-56
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
         DB_HOST: "10.182.101.5"
