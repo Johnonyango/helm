@@ -46,14 +46,11 @@ nassitxc:
     imageTag: v1.0.3
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
-        DB_HOST: "10.182.101.5"
-        DB_PORT: "4432"
-        DB_PASS: "Nassit123$"
-        DB_USER: "postgres"
-        DB_NAME: "fundmaster"
-        # DB_NAME: "fundmaster_xc_uat1?currentSchema=fundmaster"
-        WILDFLY_USER: "admin"
-        WILDFLY_PASS: "Admin@123"
+        DATABASE_URL: "jdbc:postgresql://10.182.101.5:4432/fundmaster"
+        DATABASE_PASSWORD: "Nassit123$"
+        DATABASE_USERNAME: "postgres"
+        WILDFLY_USERNAME: "admin"
+        WILDFLY_PASSWORD: "Admin@123"
     nodePort: 30051
 
 compliance:
@@ -90,7 +87,7 @@ workflow:
     limits: 
         cpu: 7m
         memory: 8Gi
-    servicePort: 8080
+    servicePort: 8081
     imageName: registry.gitlab.com/systechlimited/fm/workflowxcservice/workflow-service
     imageTag: latest
     environment:
@@ -113,7 +110,7 @@ notification:
     limits: 
         cpu: 7m
         memory: 8Gi
-    servicePort: 8080
+    servicePort: 8081
     imageName: registry.gitlab.com/systechlimited/fm/notificationsservice
     imageTag: v-03-03-2025--09-10-56
     environment:
