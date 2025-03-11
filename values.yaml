@@ -103,9 +103,6 @@ workflow:
         DATABASE_DRIVER_CLASS: "org.postgresql.Driver"
     nodePort: 30054
 
-
-
-
 notification:
     replicas: 1
     minReplicas: 1
