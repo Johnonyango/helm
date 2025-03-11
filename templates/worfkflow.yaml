@@ -2,61 +2,61 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.worfkflow.serviceName }}
-  # namespace: {{ .Values.worfkflow.nameSpace }}
-  name: {{ .Values.worfkflow.serviceName }}
+    service: {{ .Values.workflow.serviceName }}
+  # namespace: {{ .Values.workflow.nameSpace }}
+  name: {{ .Values.workflow.serviceName }}
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.worfkflow.servicePort }}
-      targetPort: {{ .Values.worfkflow.servicePort }}
-      nodePort: {{ .Values.worfkflow.nodePort }}
-      name: {{ .Values.worfkflow.serviceName }}
+    - port: {{ .Values.workflow.servicePort }}
+      targetPort: {{ .Values.workflow.servicePort }}
+      nodePort: {{ .Values.workflow.nodePort }}
+      name: {{ .Values.workflow.serviceName }}
   selector:
-    service: {{ .Values.worfkflow.serviceName }}
+    service: {{ .Values.workflow.serviceName }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.worfkflow.serviceName }}
-  name: {{ .Values.worfkflow.serviceName }}
+    service: {{ .Values.workflow.serviceName }}
+  name: {{ .Values.workflow.serviceName }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.worfkflow.serviceName }}
+      service: {{ .Values.workflow.serviceName }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.worfkflow.serviceName }}
-        service: {{ .Values.worfkflow.serviceName }}
+        component: {{ .Values.workflow.serviceName }}
+        service: {{ .Values.workflow.serviceName }}
     spec:
       containers:
-      - name: {{ .Values.worfkflow.serviceName }}
-        image: "{{ .Values.worfkflow.imageName }}:{{ .Values.worfkflow.imageTag }}"
+      - name: {{ .Values.workflow.serviceName }}
+        image: "{{ .Values.workflow.imageName }}:{{ .Values.workflow.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         resources:
           requests:
-            cpu: "{{ .Values.worfkflow.requests.cpu }}"
-            memory: "{{ .Values.worfkflow.requests.memory }}"
+            cpu: "{{ .Values.workflow.requests.cpu }}"
+            memory: "{{ .Values.workflow.requests.memory }}"
           limits:
-            cpu: "{{ .Values.worfkflow.requests.cpu }}"
-            memory: "{{ .Values.worfkflow.requests.memory }}"
+            cpu: "{{ .Values.workflow.requests.cpu }}"
+            memory: "{{ .Values.workflow.requests.memory }}"
         env:
           - name: DB_URL
-            value: "{{ .Values.worfkflow.environment.DB_URL }}"
+            value: "{{ .Values.workflow.environment.DB_URL }}"
           - name: DB_PASSWORD
-            value: "{{ .Values.worfkflow.environment.DB_PASSWORD }}"
+            value: "{{ .Values.workflow.environment.DB_PASSWORD }}"
           - name: DB_USERNAME
-            value: "{{ .Values.worfkflow.environment.DB_USERNAME }}"
+            value: "{{ .Values.workflow.environment.DB_USERNAME }}"
           - name: WILDFLY_USER
-            value: "{{ .Values.worfkflow.environment.WILDFLY_USER }}"
+            value: "{{ .Values.workflow.environment.WILDFLY_USER }}"
           - name: WILDFLY_PASS
-            value: {{ .Values.worfkflow.environment.WILDFLY_PASS }}
+            value: {{ .Values.workflow.environment.WILDFLY_PASS }}
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
-        - containerPort: {{ .Values.worfkflow.servicePort }}
+        - containerPort: {{ .Values.workflow.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
@@ -64,14 +64,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.worfkflow.serviceName }}-hpa"
+  name: "{{ .Values.workflow.serviceName }}-hpa"
 spec:
-  minReplicas: {{ .Values.worfkflow.minReplicas }}
-  maxReplicas: {{ .Values.worfkflow.maxReplicas }}
+  minReplicas: {{ .Values.workflow.minReplicas }}
+  maxReplicas: {{ .Values.workflow.maxReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.worfkflow.serviceName }}
+    name: {{ .Values.workflow.serviceName }}
   metrics:
   - type: Resource
     resource:
