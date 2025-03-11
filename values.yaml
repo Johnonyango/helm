@@ -65,30 +65,30 @@ compliance:
         WILDFLY_PASS: "Admin@123"
     nodePort: 30052
 
-# mss:
-#     replicas: 1
-#     minReplicas: 1
-#     maxReplicas: 5
-#     serviceName: nassitxc
-#     requests: 
-#         cpu: 7m
-#         memory: 8Gi
-#     limits: 
-#         cpu: 7m
-#         memory: 8Gi
-#     servicePort: 8080
-#     imageName: registry.gitlab.com/systechlimited/fm/mssvisionjava/mss_nassit
-#     imageTag: v1.0.3
-#     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
-#     environment:
-#         DB_HOST: "10.182.101.5"
-#         DB_PORT: "4432"
-#         DB_PASS: "Nassit123$"
-#         DB_USER: "postgres"
-#         DB_NAME: "mss"
-#         WILDFLY_USER: "admin"
-#         WILDFLY_PASS: "Admin@123"
-#     nodePort: 30053
+mss:
+    replicas: 1
+    minReplicas: 1
+    maxReplicas: 5
+    serviceName: nassitxc
+    requests: 
+        cpu: 7m
+        memory: 8Gi
+    limits: 
+        cpu: 7m
+        memory: 8Gi
+    servicePort: 8080
+    imageName: registry.gitlab.com/systechlimited/fm/mssvisionjava/mss_nassit
+    imageTag: v1.0.3
+    entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
+    environment:
+        DB_HOST: "10.182.101.5"
+        DB_PORT: "4432"
+        DB_PASS: "Nassit123$"
+        DB_USER: "postgres"
+        DB_NAME: "mss"
+        WILDFLY_USER: "admin"
+        WILDFLY_PASS: "Admin@123"
+    nodePort: 30053
 
 workflow:
     replicas: 1
