@@ -2,65 +2,65 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.nassitxc.serviceName }}
-  # namespace: {{ .Values.nassitxc.nameSpace }}
-  name: {{ .Values.nassitxc.serviceName }}
+    service: {{ .Values.notification.serviceName }}
+  # namespace: {{ .Values.notification.nameSpace }}
+  name: {{ .Values.notification.serviceName }}
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.nassitxc.servicePort }}
-      targetPort: {{ .Values.nassitxc.servicePort }}
-      nodePort: {{ .Values.nassitxc.nodePort }}
-      name: {{ .Values.nassitxc.serviceName }}
+    - port: {{ .Values.notification.servicePort }}
+      targetPort: {{ .Values.notification.servicePort }}
+      nodePort: {{ .Values.notification.nodePort }}
+      name: {{ .Values.notification.serviceName }}
   selector:
-    service: {{ .Values.nassitxc.serviceName }}
+    service: {{ .Values.notification.serviceName }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.nassitxc.serviceName }}
-  name: {{ .Values.nassitxc.serviceName }}
+    service: {{ .Values.notification.serviceName }}
+  name: {{ .Values.notification.serviceName }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.nassitxc.serviceName }}
+      service: {{ .Values.notification.serviceName }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.nassitxc.serviceName }}
-        service: {{ .Values.nassitxc.serviceName }}
+        component: {{ .Values.notification.serviceName }}
+        service: {{ .Values.notification.serviceName }}
     spec:
       containers:
-      - name: {{ .Values.nassitxc.serviceName }}
-        image: "{{ .Values.nassitxc.imageName }}:{{ .Values.nassitxc.imageTag }}"
+      - name: {{ .Values.notification.serviceName }}
+        image: "{{ .Values.notification.imageName }}:{{ .Values.notification.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         resources:
           requests:
-            cpu: "{{ .Values.nassitxc.requests.cpu }}"
-            memory: "{{ .Values.nassitxc.requests.memory }}"
+            cpu: "{{ .Values.notification.requests.cpu }}"
+            memory: "{{ .Values.notification.requests.memory }}"
           limits:
-            cpu: "{{ .Values.nassitxc.requests.cpu }}"
-            memory: "{{ .Values.nassitxc.requests.memory }}"
+            cpu: "{{ .Values.notification.requests.cpu }}"
+            memory: "{{ .Values.notification.requests.memory }}"
         env:
           - name: DB_HOST
-            value: "{{ .Values.nassitxc.environment.DB_HOST }}"
+            value: "{{ .Values.notification.environment.DB_HOST }}"
           - name: DB_PORT
-            value: "{{ .Values.nassitxc.environment.DB_PORT }}"
+            value: "{{ .Values.notification.environment.DB_PORT }}"
           - name: DB_PASS
-            value: "{{ .Values.nassitxc.environment.DB_PASS }}"
+            value: "{{ .Values.notification.environment.DB_PASS }}"
           - name: DB_USER
-            value: "{{ .Values.nassitxc.environment.DB_USER }}"
+            value: "{{ .Values.notification.environment.DB_USER }}"
           - name: DB_NAME
-            value: "{{ .Values.nassitxc.environment.DB_NAME }}"
+            value: "{{ .Values.notification.environment.DB_NAME }}"
           - name: WILDFLY_USER
-            value: "{{ .Values.nassitxc.environment.WILDFLY_USER }}"
+            value: "{{ .Values.notification.environment.WILDFLY_USER }}"
           - name: WILDFLY_PASS
-            value: {{ .Values.nassitxc.environment.WILDFLY_PASS }}
+            value: {{ .Values.notification.environment.WILDFLY_PASS }}
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
-        - containerPort: {{ .Values.nassitxc.servicePort }}
+        - containerPort: {{ .Values.notification.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
@@ -68,14 +68,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.nassitxc.serviceName }}-hpa"
+  name: "{{ .Values.notification.serviceName }}-hpa"
 spec:
-  minReplicas: {{ .Values.nassitxc.minReplicas }}
-  maxReplicas: {{ .Values.nassitxc.maxReplicas }}
+  minReplicas: {{ .Values.notification.minReplicas }}
+  maxReplicas: {{ .Values.notification.maxReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.nassitxc.serviceName }}
+    name: {{ .Values.notification.serviceName }}
   metrics:
   - type: Resource
     resource:
