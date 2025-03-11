@@ -38,13 +38,13 @@ spec:
       - name: {{ .Values.nassitxc.serviceName }}
         image: "{{ .Values.nassitxc.imageName }}:{{ .Values.nassitxc.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        resources:
-          requests:
-            cpu: "{{ .Values.nassitxc.requests.cpu }}"
-            memory: "{{ .Values.nassitxc.requests.memory }}"
-          limits:
-            cpu: "{{ .Values.nassitxc.requests.cpu }}"
-            memory: "{{ .Values.nassitxc.requests.memory }}"
+        # resources:
+        #   requests:
+        #     cpu: "{{ .Values.nassitxc.requests.cpu }}"
+        #     memory: "{{ .Values.nassitxc.requests.memory }}"
+        #   limits:
+        #     cpu: "{{ .Values.nassitxc.requests.cpu }}"
+        #     memory: "{{ .Values.nassitxc.requests.memory }}"
         env:
           - name: DB_HOST
             value: "{{ .Values.nassitxc.environment.DB_HOST }}"
