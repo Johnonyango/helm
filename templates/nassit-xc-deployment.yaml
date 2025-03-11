@@ -21,6 +21,8 @@ metadata:
   labels:
     service: {{ .Values.nassitxc.serviceName }}
   name: {{ .Values.nassitxc.serviceName }}
+data:
+    application.refresh.cache.expiration: "0s"
 spec:
   selector:
     matchLabels:
