@@ -3,7 +3,7 @@ applicationName: xc
 imagePullPolicy: IfNotPresent
 
 pullSecret: gitlab-registry-secret
-xc:
+nassitmss:
     replicas: 1
     serviceName: nassitmss
     # nameSpace: xc
