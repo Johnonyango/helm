@@ -41,7 +41,6 @@ nassitxc:
     limits: 
         cpu: 7m
         memory: 8Gi
-    # nameSpace: nassit
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/xe/xc-nassit
     imageTag: v1.0.3
@@ -68,7 +67,6 @@ compliance:
     limits: 
         cpu: 7m
         memory: 8Gi
-    # nameSpace: nassit
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/compliance-service
     imageTag: vtest_2025_03_11__10_41_20
