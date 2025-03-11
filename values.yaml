@@ -72,13 +72,11 @@ compliance:
     imageTag: vtest_2025_03_10__16_13_07
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
-        DB_HOST: "10.182.101.5"
-        DB_PORT: "4432"
-        DB_PASS: "Nassit123$"
-        DB_USER: "postgres"
-        DB_NAME: "fundmaster"
-        WILDFLY_USER: "admin"
-        WILDFLY_PASS: "Admin@123"
+        DATABASE_URL: "jdbc:postgresql://10.182.101.5:4432/fundmaster"
+        DATABASE_PASSWORD: "Nassit123$"
+        DATABASE_USERNAME: "postgres"
+        WILDFLY_USERNAME: "admin"
+        WILDFLY_PASSWORD: "Admin@123"
     nodePort: 30052
 
 workflow:
@@ -101,7 +99,6 @@ workflow:
         DATABASE_USERNAME: "postgres"
         HIBERNATE_DIALECT: org.hibernate.dialect.PostgresPlusDialect
         DATABASE_DRIVER_CLASS: org.postgresql.Driver
-
     nodePort: 30054
 
 
