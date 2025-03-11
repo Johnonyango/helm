@@ -5,7 +5,7 @@ imagePullPolicy: IfNotPresent
 pullSecret: gitlab-registry-secret
 xc:
     replicas: 1
-    serviceName: xc
+    serviceName: nassitmss
     # nameSpace: xc
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/xe
