@@ -60,7 +60,6 @@ spec:
             value: "{{ .Values.notification.environment.WILDFLY_USER }}"
           - name: WILDFLY_PASS
             value: {{ .Values.notification.environment.WILDFLY_PASS }}
-        command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
         - containerPort: {{ .Values.notification.servicePort }}
       imagePullSecrets:
