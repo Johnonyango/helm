@@ -43,7 +43,7 @@ nassitxc:
         memory: 8Gi
     servicePort: 8080
     imageName: registry.gitlab.com/systechlimited/fm/xe/xc-nassit
-    imageTag: v1.0.3
+    imageTag: vtest_12_03_2025__08_31_11
     entryPoint: "/opt/jboss/wildfly/configure_wildfly.sh"
     environment:
         DATABASE_URL: "jdbc:postgresql://10.182.101.5:4432/fundmaster"
