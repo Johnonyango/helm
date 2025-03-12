@@ -34,7 +34,7 @@ xcmemberscontribiutions:
     replicas: 1
     minReplicas: 1
     maxReplicas: 1
-    serviceName: xc-members-contribiutions
+    serviceName: xcmemberscontribiutions
     requests: 
         cpu: 7m
         memory: 8Gi

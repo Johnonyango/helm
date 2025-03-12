@@ -20,8 +20,6 @@ metadata:
   labels:
     service: {{ .Values.nassitmss.serviceName }}
   name: {{ .Values.nassitmss.serviceName }}
-data:
-    application.refresh.cache.expiration: "0s"
 spec:
   selector:
     matchLabels:
