@@ -21,8 +21,6 @@ metadata:
   labels:
     service: {{ .Values.xc-payroll.serviceName }}
   name: {{ .Values.xc-payroll.serviceName }}
-data:
-    application.refresh.cache.expiration: "0s"
 spec:
   selector:
     matchLabels:
