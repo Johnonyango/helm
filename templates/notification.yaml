@@ -21,8 +21,6 @@ metadata:
   labels:
     service: {{ .Values.notification.serviceName }}
   name: {{ .Values.notification.serviceName }}
-data:
-    application.refresh.cache.expiration: "0s"
 spec:
   selector:
     matchLabels:
