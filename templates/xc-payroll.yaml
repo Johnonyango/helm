@@ -2,61 +2,61 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.xc-payroll.serviceName }}
-  # namespace: {{ .Values.xc-payroll.nameSpace }}
-  name: {{ .Values.xc-payroll.serviceName }}
+    service: {{ .Values.xcpayroll.serviceName }}
+  # namespace: {{ .Values.xcpayroll.nameSpace }}
+  name: {{ .Values.xcpayroll.serviceName }}
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.xc-payroll.servicePort }}
-      targetPort: {{ .Values.xc-payroll.servicePort }}
-      nodePort: {{ .Values.xc-payroll.nodePort }}
-      name: {{ .Values.xc-payroll.serviceName }}
+    - port: {{ .Values.xcpayroll.servicePort }}
+      targetPort: {{ .Values.xcpayroll.servicePort }}
+      nodePort: {{ .Values.xcpayroll.nodePort }}
+      name: {{ .Values.xcpayroll.serviceName }}
   selector:
-    service: {{ .Values.xc-payroll.serviceName }}
+    service: {{ .Values.xcpayroll.serviceName }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.xc-payroll.serviceName }}
-  name: {{ .Values.xc-payroll.serviceName }}
+    service: {{ .Values.xcpayroll.serviceName }}
+  name: {{ .Values.xcpayroll.serviceName }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.xc-payroll.serviceName }}
+      service: {{ .Values.xcpayroll.serviceName }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.xc-payroll.serviceName }}
-        service: {{ .Values.xc-payroll.serviceName }}
+        component: {{ .Values.xcpayroll.serviceName }}
+        service: {{ .Values.xcpayroll.serviceName }}
     spec:
       containers:
-      - name: {{ .Values.xc-payroll.serviceName }}
-        image: "{{ .Values.xc-payroll.imageName }}:{{ .Values.xc-payroll.imageTag }}"
+      - name: {{ .Values.xcpayroll.serviceName }}
+        image: "{{ .Values.xcpayroll.imageName }}:{{ .Values.xcpayroll.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         # resources:
         #   requests:
-        #     cpu: "{{ .Values.xc-payroll.requests.cpu }}"
-        #     memory: "{{ .Values.xc-payroll.requests.memory }}"
+        #     cpu: "{{ .Values.xcpayroll.requests.cpu }}"
+        #     memory: "{{ .Values.xcpayroll.requests.memory }}"
         #   limits:
-        #     cpu: "{{ .Values.xc-payroll.requests.cpu }}"
-        #     memory: "{{ .Values.xc-payroll.requests.memory }}"
+        #     cpu: "{{ .Values.xcpayroll.requests.cpu }}"
+        #     memory: "{{ .Values.xcpayroll.requests.memory }}"
         env:
           - name: DATABASE_URL
-            value: "{{ .Values.xc-payroll.environment.DATABASE_URL }}"
+            value: "{{ .Values.xcpayroll.environment.DATABASE_URL }}"
           - name: DATABASE_PASSWORD
-            value: "{{ .Values.xc-payroll.environment.DATABASE_PASSWORD }}"
+            value: "{{ .Values.xcpayroll.environment.DATABASE_PASSWORD }}"
           - name: DATABASE_USERNAME
-            value: "{{ .Values.xc-payroll.environment.DATABASE_USERNAME }}"
+            value: "{{ .Values.xcpayroll.environment.DATABASE_USERNAME }}"
           - name: WILDFLY_USERNAME
-            value: "{{ .Values.xc-payroll.environment.WILDFLY_USERNAME }}"
+            value: "{{ .Values.xcpayroll.environment.WILDFLY_USERNAME }}"
           - name: WILDFLY_PASSWORD
-            value: "{{ .Values.xc-payroll.environment.WILDFLY_PASSWORD }}"
+            value: "{{ .Values.xcpayroll.environment.WILDFLY_PASSWORD }}"
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
-        - containerPort: {{ .Values.xc-payroll.servicePort }}
+        - containerPort: {{ .Values.xcpayroll.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
@@ -64,14 +64,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.xc-payroll.serviceName }}-hpa"
+  name: "{{ .Values.xcpayroll.serviceName }}-hpa"
 spec:
-  minReplicas: {{ .Values.xc-payroll.minReplicas }}
-  maxReplicas: {{ .Values.xc-payroll.maxReplicas }}
+  minReplicas: {{ .Values.xcpayroll.minReplicas }}
+  maxReplicas: {{ .Values.xcpayroll.maxReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.xc-payroll.serviceName }}
+    name: {{ .Values.xcpayroll.serviceName }}
   metrics:
   - type: Resource
     resource:

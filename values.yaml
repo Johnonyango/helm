@@ -30,7 +30,7 @@ nassitmss:
         WILDFLY_PASS: "Admin@123"
     nodePort: 30050
 
-xc-members-contribiutions:
+xcmemberscontribiutions:
     replicas: 1
     minReplicas: 1
     maxReplicas: 1
@@ -53,11 +53,11 @@ xc-members-contribiutions:
         WILDFLY_PASSWORD: "Admin@123"
     nodePort: 30013
 
-xc-payroll:
+xcpayroll:
     replicas: 1
     minReplicas: 1
     maxReplicas: 1
-    serviceName: xc-payroll
+    serviceName: xcpayroll
     requests: 
         cpu: 7m
         memory: 8Gi
@@ -76,11 +76,11 @@ xc-payroll:
         WILDFLY_PASSWORD: "Admin@123"
     nodePort: 30014
 
-xc-benefits:
+xcbenefits:
     replicas: 1
     minReplicas: 1
     maxReplicas: 1
-    serviceName: xc-benefits
+    serviceName: xcbenefits
     requests: 
         cpu: 7m
         memory: 8Gi
