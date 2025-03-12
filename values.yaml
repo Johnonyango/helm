@@ -74,7 +74,7 @@ compliance:
         DATABASE_USERNAME: "postgres"
         WILDFLY_USERNAME: "admin"
         WILDFLY_PASSWORD: "Admin@123"
-    nodePort: 30016
+    nodePort: 30053
 
 workflow:
     replicas: 1
