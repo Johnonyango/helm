@@ -123,7 +123,7 @@ compliance:
     nodePort: 30016
 
 workflow:
-    replicas: 1
+    replicas: 2
     minReplicas: 1
     maxReplicas: 1
     serviceName: workflow
