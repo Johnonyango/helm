@@ -123,9 +123,9 @@ compliance:
     nodePort: 30016
 
 workflow:
-    replicas: 1
-    minReplicas: 1
-    maxReplicas: 1
+    replicas: 3
+    # minReplicas: 1
+    # maxReplicas: 1
     serviceName: workflow
     requests: 
         cpu: 7m
