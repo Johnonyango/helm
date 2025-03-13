@@ -124,8 +124,8 @@ compliance:
 
 workflow:
     replicas: 3
-    minReplicas: 1
-    maxReplicas: 6
+    # minReplicas: 1
+    # maxReplicas: 6
     serviceName: workflow
     requests: 
         cpu: 7m
