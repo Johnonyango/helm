@@ -124,8 +124,8 @@ compliance:
 
 workflow:
     replicas: 3
-    # minReplicas: 1
-    # maxReplicas: 6
+    minReplicas: 1
+    maxReplicas: 6
     serviceName: workflow
     requests: 
         cpu: 7m
@@ -158,7 +158,7 @@ notification:
         memory: 8Gi
     servicePort: 8081
     imageName: registry.gitlab.com/systechlimited/fm/notificationsservice
-    imageTag: v-03-03-2025--09-10-56
+    imageTag: v-03-03-2025--09-10-59j
     environment:
         DB_HOST: "10.182.101.5"
         DB_PORT: "4432"
