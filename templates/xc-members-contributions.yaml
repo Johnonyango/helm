@@ -52,22 +52,22 @@ spec:
         - name: DATABASE_USERNAME
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: DATABASE_USERNAME
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: DATABASE_PASSWORD
         - name: WILDFLY_USERNAME
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: WILDFLY_USERNAME
         - name: WILDFLY_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: WILDFLY_PASSWORD
 
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
