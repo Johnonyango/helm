@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.xc.serviceName }}-config
 data:
-  DATABASE_URL: "{{ .Values.xcmemberscontribiutions.environment.DATABASE_URL }}"
+  DATABASE_URL: "{{ .Values.xc.environment.DATABASE_URL }}"
