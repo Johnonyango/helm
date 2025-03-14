@@ -51,7 +51,7 @@ xcmemberscontribiutions:
         DATABASE_USERNAME: "postgres"
         WILDFLY_USERNAME: "admin"
         WILDFLY_PASSWORD: "Admin@123"
-    nodePort: 30013
+    nodePort_xcmembers: 30013
 
 xcpayroll:
     replicas: 1

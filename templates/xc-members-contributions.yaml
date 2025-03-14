@@ -10,7 +10,7 @@ spec:
   ports:
     - port: {{ .Values.xcmemberscontribiutions.servicePort }}
       targetPort: {{ .Values.xcmemberscontribiutions.servicePort }}
-      nodePort: {{ .Values.xcmemberscontribiutions.nodePort }}
+      nodePort: {{ .Values.xcmemberscontribiutions.nodePort_xcmembers }}
       name: {{ .Values.xcmemberscontribiutions.serviceName }}
   selector:
     service: {{ .Values.xcmemberscontribiutions.serviceName }}
