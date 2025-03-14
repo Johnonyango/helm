@@ -44,16 +44,32 @@ spec:
         #     cpu: "{{ .Values.xc.requests.cpu }}"
         #     memory: "{{ .Values.xc.requests.memory }}"
         env:
-          - name: DATABASE_URL
-            value: "{{ .Values.xc.environment.DATABASE_URL }}"
-          - name: DATABASE_PASSWORD
-            value: "{{ .Values.xc.environment.DATABASE_PASSWORD }}"
-          - name: DATABASE_USERNAME
-            value: "{{ .Values.xc.environment.DATABASE_USERNAME }}"
-          - name: WILDFLY_USERNAME
-            value: "{{ .Values.xc.environment.WILDFLY_USERNAME }}"
-          - name: WILDFLY_PASSWORD
-            value: "{{ .Values.xc.environment.WILDFLY_PASSWORD }}"
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.xc.serviceName }}-config
+              key: DATABASE_URL
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.xc.serviceName }}-secret
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.xc.serviceName }}-secret
+              key: DATABASE_PASSWORD
+        - name: WILDFLY_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.xc.serviceName }}-secret
+              key: WILDFLY_USERNAME
+        - name: WILDFLY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.xc.serviceName }}-secret
+              key: WILDFLY_PASSWORD
+
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
         - containerPort: {{ .Values.xc.servicePort }}
