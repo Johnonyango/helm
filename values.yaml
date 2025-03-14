@@ -34,7 +34,7 @@ xc:
     replicas: 1
     minReplicas: 1
     maxReplicas: 1
-    # serviceName: xc
+    serviceName: xc
     requests: 
         cpu: 7m
         memory: 8Gi
