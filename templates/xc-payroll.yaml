@@ -2,38 +2,38 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.xc.serviceName }}
+    service: {{ .Values.xc.serviceName2 }}
   # namespace: {{ .Values.xc.nameSpace }}
-  name: {{ .Values.xc.serviceName }}
+  name: {{ .Values.xc.serviceName2 }}
 spec:
   type: NodePort
   ports:
     - port: {{ .Values.xc.servicePort }}
       targetPort: {{ .Values.xc.servicePort }}
-      nodePort: {{ .Values.xc.nodePort_xc }}
-      name: {{ .Values.xc.serviceName }}
+      nodePort: {{ .Values.xc.nodePort_xcpayroll }}
+      name: {{ .Values.xc.serviceName2 }}
   selector:
-    service: {{ .Values.xc.serviceName }}
+    service: {{ .Values.xc.serviceName2 }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.xc.serviceName }}
-  name: {{ .Values.xc.serviceName }}
+    service: {{ .Values.xc.serviceName2 }}
+  name: {{ .Values.xc.serviceName2 }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.xc.serviceName }}
+      service: {{ .Values.xc.serviceName2 }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.xc.serviceName }}
-        service: {{ .Values.xc.serviceName }}
+        component: {{ .Values.xc.serviceName2 }}
+        service: {{ .Values.xc.serviceName2 }}
     spec:
       containers:
-      - name: {{ .Values.xc.serviceName }}
+      - name: {{ .Values.xc.serviceName2 }}
         image: "{{ .Values.xc.imageName }}:{{ .Values.xc.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         # resources:
@@ -64,14 +64,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.xc.serviceName }}-hpa"
+  name: "{{ .Values.xc.serviceName2 }}-hpa"
 spec:
   minReplicas: {{ .Values.xc.minReplicas }}
   maxReplicas: {{ .Values.xc.maxReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.xc.serviceName }}
+    name: {{ .Values.xc.serviceName2 }}
   metrics:
   - type: Resource
     resource:

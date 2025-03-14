@@ -2,38 +2,38 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.xc.serviceName }}
+    service: {{ .Values.xc.serviceName1 }}
   # namespace: {{ .Values.xc.nameSpace }}
-  name: {{ .Values.xc.serviceName }}
+  name: {{ .Values.xc.serviceName1 }}
 spec:
   type: NodePort
   ports:
     - port: {{ .Values.xc.servicePort }}
       targetPort: {{ .Values.xc.servicePort }}
       nodePort: {{ .Values.xc.nodePort_xcmembers }}
-      name: {{ .Values.xc.serviceName }}
+      name: {{ .Values.xc.serviceName1 }}
   selector:
-    service: {{ .Values.xc.serviceName }}
+    service: {{ .Values.xc.serviceName1 }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.xc.serviceName }}
-  name: {{ .Values.xc.serviceName }}
+    service: {{ .Values.xc.serviceName1 }}
+  name: {{ .Values.xc.serviceName1 }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.xc.serviceName }}
+      service: {{ .Values.xc.serviceName1 }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.xc.serviceName }}
-        service: {{ .Values.xc.serviceName }}
+        component: {{ .Values.xc.serviceName1 }}
+        service: {{ .Values.xc.serviceName1 }}
     spec:
       containers:
-      - name: {{ .Values.xc.serviceName }}
+      - name: {{ .Values.xc.serviceName1 }}
         image: "{{ .Values.xc.imageName }}:{{ .Values.xc.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         # resources:
@@ -47,27 +47,27 @@ spec:
         - name: DATABASE_URL
           valueFrom:
             configMapKeyRef:
-              name: {{ .Values.xc.serviceName }}-config
+              name: {{ .Values.xc.serviceName1 }}-config
               key: DATABASE_URL
         - name: DATABASE_USERNAME
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: DATABASE_USERNAME
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: DATABASE_PASSWORD
         - name: WILDFLY_USERNAME
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: WILDFLY_USERNAME
         - name: WILDFLY_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xc.serviceName }}-secret
+              name: {{ .Values.xc.serviceName1 }}-secret
               key: WILDFLY_PASSWORD
 
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
@@ -80,14 +80,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.xc.serviceName }}-hpa"
+  name: "{{ .Values.xc.serviceName1 }}-hpa"
 spec:
   minReplicas: {{ .Values.xc.minReplicas }}
   maxReplicas: {{ .Values.xc.maxReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.xc.serviceName }}
+    name: {{ .Values.xc.serviceName1 }}
   metrics:
   - type: Resource
     resource:

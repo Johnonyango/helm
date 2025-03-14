@@ -34,7 +34,7 @@ xc:
     replicas: 1
     minReplicas: 1
     maxReplicas: 1
-    serviceName: xc
+    # serviceName: xc
     requests: 
         cpu: 7m
         memory: 8Gi
@@ -54,6 +54,9 @@ xc:
     nodePort_xcmembers: 30013
     nodePort_xcpayroll: 30014
     nodePort_xcbenefits: 30015
+    serviceName1: xcmemberscontributions
+    serviceName2: xcpayroll
+    serviceName3: xcbenefits
 
 # xcpayroll:
 #     replicas: 1
