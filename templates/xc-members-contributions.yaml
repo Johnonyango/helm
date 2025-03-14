@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     service: {{ .Values.xc.serviceName }}
-  # namespace: {{ .Values.xcmemberscontribiutions.nameSpace }}
+  # namespace: {{ .Values.xc.nameSpace }}
   name: {{ .Values.xc.serviceName }}
 spec:
   type: NodePort
@@ -38,11 +38,11 @@ spec:
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         # resources:
         #   requests:
-        #     cpu: "{{ .Values.xcmemberscontribiutions.requests.cpu }}"
-        #     memory: "{{ .Values.xcmemberscontribiutions.requests.memory }}"
+        #     cpu: "{{ .Values.xc.requests.cpu }}"
+        #     memory: "{{ .Values.xc.requests.memory }}"
         #   limits:
-        #     cpu: "{{ .Values.xcmemberscontribiutions.requests.cpu }}"
-        #     memory: "{{ .Values.xcmemberscontribiutions.requests.memory }}"
+        #     cpu: "{{ .Values.xc.requests.cpu }}"
+        #     memory: "{{ .Values.xc.requests.memory }}"
         env:
         - name: DATABASE_URL
           valueFrom:
