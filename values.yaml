@@ -52,7 +52,7 @@ xc:
         WILDFLY_USERNAME: "admin"
         WILDFLY_PASSWORD: "Admin@123"
     nodePort_xcmembers: 30013
-    nodePort_xcpayroll: 30014
+    nodePort_xcpayroll: 30044
     nodePort_xcbenefits: 30015
     serviceName1: xcmemberscontributions
     serviceName2: xcpayroll
