@@ -2,61 +2,61 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.xcbenefits.serviceName }}
-  # namespace: {{ .Values.xcbenefits.nameSpace }}
-  name: {{ .Values.xcbenefits.serviceName }}
+    service: {{ .Values.xc.serviceName }}
+  # namespace: {{ .Values.xc.nameSpace }}
+  name: {{ .Values.xc.serviceName }}
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.xcbenefits.servicePort }}
-      targetPort: {{ .Values.xcbenefits.servicePort }}
-      nodePort: {{ .Values.xcbenefits.nodePort }}
-      name: {{ .Values.xcbenefits.serviceName }}
+    - port: {{ .Values.xc.servicePort }}
+      targetPort: {{ .Values.xc.servicePort }}
+      nodePort: {{ .Values.xc.nodePort_xcbenefits }}
+      name: {{ .Values.xc.serviceName }}
   selector:
-    service: {{ .Values.xcbenefits.serviceName }}
+    service: {{ .Values.xc.serviceName }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.xcbenefits.serviceName }}
-  name: {{ .Values.xcbenefits.serviceName }}
+    service: {{ .Values.xc.serviceName }}
+  name: {{ .Values.xc.serviceName }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.xcbenefits.serviceName }}
+      service: {{ .Values.xc.serviceName }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.xcbenefits.serviceName }}
-        service: {{ .Values.xcbenefits.serviceName }}
+        component: {{ .Values.xc.serviceName }}
+        service: {{ .Values.xc.serviceName }}
     spec:
       containers:
-      - name: {{ .Values.xcbenefits.serviceName }}
-        image: "{{ .Values.xcbenefits.imageName }}:{{ .Values.xcbenefits.imageTag }}"
+      - name: {{ .Values.xc.serviceName }}
+        image: "{{ .Values.xc.imageName }}:{{ .Values.xc.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         # resources:
         #   requests:
-        #     cpu: "{{ .Values.xcbenefits.requests.cpu }}"
-        #     memory: "{{ .Values.xcbenefits.requests.memory }}"
+        #     cpu: "{{ .Values.xc.requests.cpu }}"
+        #     memory: "{{ .Values.xc.requests.memory }}"
         #   limits:
-        #     cpu: "{{ .Values.xcbenefits.requests.cpu }}"
-        #     memory: "{{ .Values.xcbenefits.requests.memory }}"
+        #     cpu: "{{ .Values.xc.requests.cpu }}"
+        #     memory: "{{ .Values.xc.requests.memory }}"
         env:
           - name: DATABASE_URL
-            value: "{{ .Values.xcbenefits.environment.DATABASE_URL }}"
+            value: "{{ .Values.xc.environment.DATABASE_URL }}"
           - name: DATABASE_PASSWORD
-            value: "{{ .Values.xcbenefits.environment.DATABASE_PASSWORD }}"
+            value: "{{ .Values.xc.environment.DATABASE_PASSWORD }}"
           - name: DATABASE_USERNAME
-            value: "{{ .Values.xcbenefits.environment.DATABASE_USERNAME }}"
+            value: "{{ .Values.xc.environment.DATABASE_USERNAME }}"
           - name: WILDFLY_USERNAME
-            value: "{{ .Values.xcbenefits.environment.WILDFLY_USERNAME }}"
+            value: "{{ .Values.xc.environment.WILDFLY_USERNAME }}"
           - name: WILDFLY_PASSWORD
-            value: "{{ .Values.xcbenefits.environment.WILDFLY_PASSWORD }}"
+            value: "{{ .Values.xc.environment.WILDFLY_PASSWORD }}"
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
-        - containerPort: {{ .Values.xcbenefits.servicePort }}
+        - containerPort: {{ .Values.xc.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
@@ -64,14 +64,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.xcbenefits.serviceName }}-hpa"
+  name: "{{ .Values.xc.serviceName }}-hpa"
 spec:
-  minReplicas: {{ .Values.xcbenefits.minReplicas }}
-  maxReplicas: {{ .Values.xcbenefits.maxReplicas }}
+  minReplicas: {{ .Values.xc.minReplicas }}
+  maxReplicas: {{ .Values.xc.maxReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.xcbenefits.serviceName }}
+    name: {{ .Values.xc.serviceName }}
   metrics:
   - type: Resource
     resource:
