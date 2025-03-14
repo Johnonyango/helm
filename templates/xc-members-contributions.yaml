@@ -2,39 +2,39 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.xcmemberscontribiutions.serviceName }}
+    service: {{ .Values.xc.serviceName }}
   # namespace: {{ .Values.xcmemberscontribiutions.nameSpace }}
-  name: {{ .Values.xcmemberscontribiutions.serviceName }}
+  name: {{ .Values.xc.serviceName }}
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.xcmemberscontribiutions.servicePort }}
-      targetPort: {{ .Values.xcmemberscontribiutions.servicePort }}
-      nodePort: {{ .Values.xcmemberscontribiutions.nodePort_xcmembers }}
-      name: {{ .Values.xcmemberscontribiutions.serviceName }}
+    - port: {{ .Values.xc.servicePort }}
+      targetPort: {{ .Values.xc.servicePort }}
+      nodePort: {{ .Values.xc.nodePort_xcmembers }}
+      name: {{ .Values.xc.serviceName }}
   selector:
-    service: {{ .Values.xcmemberscontribiutions.serviceName }}
+    service: {{ .Values.xc.serviceName }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: {{ .Values.xcmemberscontribiutions.serviceName }}
-  name: {{ .Values.xcmemberscontribiutions.serviceName }}
+    service: {{ .Values.xc.serviceName }}
+  name: {{ .Values.xc.serviceName }}
 spec:
   selector:
     matchLabels:
-      service: {{ .Values.xcmemberscontribiutions.serviceName }}
+      service: {{ .Values.xc.serviceName }}
   template:
     metadata:
       labels:
         app: {{ .Values.applicationName }}
-        component: {{ .Values.xcmemberscontribiutions.serviceName }}
-        service: {{ .Values.xcmemberscontribiutions.serviceName }}
+        component: {{ .Values.xc.serviceName }}
+        service: {{ .Values.xc.serviceName }}
     spec:
       containers:
-      - name: {{ .Values.xcmemberscontribiutions.serviceName }}
-        image: "{{ .Values.xcmemberscontribiutions.imageName }}:{{ .Values.xcmemberscontribiutions.imageTag }}"
+      - name: {{ .Values.xc.serviceName }}
+        image: "{{ .Values.xc.imageName }}:{{ .Values.xc.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         # resources:
         #   requests:
@@ -47,32 +47,32 @@ spec:
         - name: DATABASE_URL
           valueFrom:
             configMapKeyRef:
-              name: {{ .Values.xcmemberscontribiutions.serviceName }}-config
+              name: {{ .Values.xc.serviceName }}-config
               key: DATABASE_URL
         - name: DATABASE_USERNAME
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xcmemberscontribiutions.serviceName }}-secret
+              name: {{ .Values.xc.serviceName }}-secret
               key: DATABASE_USERNAME
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xcmemberscontribiutions.serviceName }}-secret
+              name: {{ .Values.xc.serviceName }}-secret
               key: DATABASE_PASSWORD
         - name: WILDFLY_USERNAME
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xcmemberscontribiutions.serviceName }}-secret
+              name: {{ .Values.xc.serviceName }}-secret
               key: WILDFLY_USERNAME
         - name: WILDFLY_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.xcmemberscontribiutions.serviceName }}-secret
+              name: {{ .Values.xc.serviceName }}-secret
               key: WILDFLY_PASSWORD
 
         command: [ "sh", "-c", "/opt/jboss/wildfly/configure_wildfly.sh" ]
         ports:
-        - containerPort: {{ .Values.xcmemberscontribiutions.servicePort }}
+        - containerPort: {{ .Values.xc.servicePort }}
       imagePullSecrets:
         - name: {{ .Values.pullSecret }}
 
@@ -80,14 +80,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.xcmemberscontribiutions.serviceName }}-hpa"
+  name: "{{ .Values.xc.serviceName }}-hpa"
 spec:
-  minReplicas: {{ .Values.xcmemberscontribiutions.minReplicas }}
-  maxReplicas: {{ .Values.xcmemberscontribiutions.maxReplicas }}
+  minReplicas: {{ .Values.xc.minReplicas }}
+  maxReplicas: {{ .Values.xc.maxReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.xcmemberscontribiutions.serviceName }}
+    name: {{ .Values.xc.serviceName }}
   metrics:
   - type: Resource
     resource:
