@@ -130,29 +130,29 @@ notification:
         WILDFLY_PASS: "Admin@123"
     nodePort: 30055
 
-edrms:
-    replicas: 1
-    minReplicas: 1
-    maxReplicas: 1
-    serviceName: edrms
-    requests: 
-        cpu: 7m
-        memory: 8Gi
-    limits: 
-        cpu: 7m
-        memory: 8Gi
-    servicePort: 8081
-    imageName: registry.gitlab.com/systechlimited/fm/notificationsservice
-    imageTag: v-03-03-2025--09-10-56
-    environment:
-        DB_ENGINE: postgres
-        DB_HOST: 10.182.101.35
-        DB_NAME: edrms
-        DB_USER: postgres
-        DB_PASSWORD: postgres
-        DB_PORT: 5432
-        LDOC_MEMORY: 2000
-    nodePort: 30056
+# edrms:
+#     replicas: 1
+#     minReplicas: 1
+#     maxReplicas: 1
+#     serviceName: edrms
+#     requests: 
+#         cpu: 7m
+#         memory: 8Gi
+#     limits: 
+#         cpu: 7m
+#         memory: 8Gi
+#     servicePort: 8081
+#     imageName: registry.gitlab.com/systechlimited/fm/notificationsservice
+#     imageTag: v-03-03-2025--09-10-56
+#     environment:
+#         DB_ENGINE: postgres
+#         DB_HOST: 10.182.101.35
+#         DB_NAME: edrms
+#         DB_USER: postgres
+#         DB_PASSWORD: postgres
+#         DB_PORT: 5432
+#         LDOC_MEMORY: 2000
+#     nodePort: 30056
     
 #  https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
      
