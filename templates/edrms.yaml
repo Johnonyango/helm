@@ -1,91 +1,91 @@
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    service: {{ .Values.edrms.serviceName }}
-  # namespace: {{ .Values.edrms.nameSpace }}
-  name: {{ .Values.edrms.serviceName }}
-spec:
-  type: NodePort
-  ports:
-    - port: {{ .Values.edrms.servicePort }}
-      targetPort: {{ .Values.edrms.servicePort }}
-      nodePort: {{ .Values.edrms.nodePort }}
-      name: {{ .Values.edrms.serviceName }}
-  selector:
-    service: {{ .Values.edrms.serviceName }}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    service: {{ .Values.edrms.serviceName }}
-  name: {{ .Values.edrms.serviceName }}
-spec:
-  selector:
-    matchLabels:
-      service: {{ .Values.edrms.serviceName }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Values.applicationName }}
-        component: {{ .Values.edrms.serviceName }}
-        service: {{ .Values.edrms.serviceName }}
-    spec:
-      containers:
-      - name: {{ .Values.edrms.serviceName }}
-        image: "{{ .Values.edrms.imageName }}:{{ .Values.edrms.imageTag }}"
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
-        resources:
-          requests:
-            cpu: "{{ .Values.edrms.requests.cpu }}"
-            memory: "{{ .Values.edrms.requests.memory }}"
-          limits:
-            cpu: "{{ .Values.edrms.requests.cpu }}"
-            memory: "{{ .Values.edrms.requests.memory }}"
-        env:
-          - name: DB_HOST
-            value: "{{ .Values.edrms.environment.DB_HOST }}"
-          - name: DB_PORT
-            value: "{{ .Values.edrms.environment.DB_PORT }}"
-          - name: DB_PASS
-            value: "{{ .Values.edrms.environment.DB_PASS }}"
-          - name: DB_USER
-            value: "{{ .Values.edrms.environment.DB_USER }}"
-          - name: DB_NAME
-            value: "{{ .Values.edrms.environment.DB_NAME }}"
-          - name: WILDFLY_USER
-            value: "{{ .Values.edrms.environment.WILDFLY_USER }}"
-          - name: WILDFLY_PASS
-            value: {{ .Values.edrms.environment.WILDFLY_PASS }}
-        ports:
-        - containerPort: {{ .Values.edrms.servicePort }}
-      imagePullSecrets:
-        - name: {{ .Values.pullSecret }}
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     service: {{ .Values.edrms.serviceName }}
+#   # namespace: {{ .Values.edrms.nameSpace }}
+#   name: {{ .Values.edrms.serviceName }}
+# spec:
+#   type: NodePort
+#   ports:
+#     - port: {{ .Values.edrms.servicePort }}
+#       targetPort: {{ .Values.edrms.servicePort }}
+#       nodePort: {{ .Values.edrms.nodePort }}
+#       name: {{ .Values.edrms.serviceName }}
+#   selector:
+#     service: {{ .Values.edrms.serviceName }}
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     service: {{ .Values.edrms.serviceName }}
+#   name: {{ .Values.edrms.serviceName }}
+# spec:
+#   selector:
+#     matchLabels:
+#       service: {{ .Values.edrms.serviceName }}
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ .Values.applicationName }}
+#         component: {{ .Values.edrms.serviceName }}
+#         service: {{ .Values.edrms.serviceName }}
+#     spec:
+#       containers:
+#       - name: {{ .Values.edrms.serviceName }}
+#         image: "{{ .Values.edrms.imageName }}:{{ .Values.edrms.imageTag }}"
+#         imagePullPolicy: {{ .Values.imagePullPolicy }}
+#         resources:
+#           requests:
+#             cpu: "{{ .Values.edrms.requests.cpu }}"
+#             memory: "{{ .Values.edrms.requests.memory }}"
+#           limits:
+#             cpu: "{{ .Values.edrms.requests.cpu }}"
+#             memory: "{{ .Values.edrms.requests.memory }}"
+#         env:
+#           - name: DB_HOST
+#             value: "{{ .Values.edrms.environment.DB_HOST }}"
+#           - name: DB_PORT
+#             value: "{{ .Values.edrms.environment.DB_PORT }}"
+#           - name: DB_PASS
+#             value: "{{ .Values.edrms.environment.DB_PASS }}"
+#           - name: DB_USER
+#             value: "{{ .Values.edrms.environment.DB_USER }}"
+#           - name: DB_NAME
+#             value: "{{ .Values.edrms.environment.DB_NAME }}"
+#           - name: WILDFLY_USER
+#             value: "{{ .Values.edrms.environment.WILDFLY_USER }}"
+#           - name: WILDFLY_PASS
+#             value: {{ .Values.edrms.environment.WILDFLY_PASS }}
+#         ports:
+#         - containerPort: {{ .Values.edrms.servicePort }}
+#       imagePullSecrets:
+#         - name: {{ .Values.pullSecret }}
 
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: "{{ .Values.edrms.serviceName }}-hpa"
-spec:
-  minReplicas: {{ .Values.edrms.minReplicas }}
-  maxReplicas: {{ .Values.edrms.maxReplicas }}
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ .Values.edrms.serviceName }}
-  metrics:
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 70
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
+# ---
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: "{{ .Values.edrms.serviceName }}-hpa"
+# spec:
+#   minReplicas: {{ .Values.edrms.minReplicas }}
+#   maxReplicas: {{ .Values.edrms.maxReplicas }}
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: {{ .Values.edrms.serviceName }}
+#   metrics:
+#   - type: Resource
+#     resource:
+#       name: memory
+#       target:
+#         type: Utilization
+#         averageUtilization: 70
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: Utilization
+#         averageUtilization: 70
 
