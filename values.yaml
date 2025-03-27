@@ -146,7 +146,7 @@ edrms:
     imageTag: v-03-03-2025--09-10-56
     environment:
         DB_ENGINE: postgres
-        DB_HOST: 10.182.101.5
+        DB_HOST: 10.182.101.35
         DB_NAME: edrms
         DB_USER: postgres
         DB_PASSWORD: postgres
